@@ -1,0 +1,269 @@
+/* SKT Hinduism Theme Styles */
+body {
+    font-family: 'Times New Roman', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* White background */
+    color: #333333; /* Dark text */
+}
+
+header {
+    background-color: #FF9933; /* Saffron */
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    animation: fadeIn 2s ease-in-out;
+}
+
+nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+#hero {
+    background-image: url('background.jpg'); /* Krishna-themed Hindu festival background */
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    animation: parallax 10s ease-in-out infinite alternate;
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.motion-text {
+    font-size: 3rem;
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes parallax {
+    0% { background-position: center top; }
+    50% { background-position: center bottom; }
+    100% { background-position: center top; }
+}
+
+#about, #videos, #photos, #documentation, #news, #social, #admin, #enquiry, #pocket-radio {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#enquiry {
+    background-color: #f0f0f0; /* Light gray */
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.social-links a {
+    color: #FF9933;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+}
+
+.social-links a:hover {
+    background-color: #FF9933;
+    color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #FF9933;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #CC7A29; /* Darker saffron */
+}
+
+footer {
+    background-color: #FF9933;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.photo-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.docs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.doc-link {
+    color: #FF9933;
+    text-decoration: none;
+    padding: 0.5rem;
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.doc-link:hover {
+    background-color: #FF9933;
+    color: #fff;
+}
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.news-item {
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.news-item h3 {
+    margin-top: 0;
+}
+
+.news-item time {
+    font-style: italic;
+    color: #CC7A29;
+}
+
+.admin-forms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.admin-forms form {
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.admin-forms h3 {
+    margin-top: 0;
+    color: #FF9933;
+}
+
+/* Random Video Selector Highlight */
+.highlight {
+    border: 3px solid #138808; /* Green border for highlight */
+    box-shadow: 0 0 10px rgba(19, 136, 8, 0.8); /* Green glow effect */
+    transition: all 0.3s ease;
+}
+
+/* Pocket Radio Styles */
+.radio-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#audio-player {
+    width: 100%;
+    max-width: 400px;
+}
+
+.playlist {
+    width: 100%;
+    max-width: 400px;
+}
+
+.playlist ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.playlist li {
+    padding: 0.5rem;
+    border: 1px solid #FF9933;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.playlist li:hover {
+    background-color: #FF9933;
+    color: #fff;
+}
+
+.playlist li.active {
+    background-color: #CC7A29;
+    color: #fff;
+}
