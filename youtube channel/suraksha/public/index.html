@@ -1,0 +1,685 @@
+<!-- Save as index.html and open in browser -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>InternshipHub — All-in-one</title>
+
+  <!-- Google font (no critical external JS) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#98a0b3;
+      --accent:#ff6b61; --glass: rgba(255,255,255,0.04);
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0; font-family:"Poppins",sans-serif; background:
+      linear-gradient(180deg,#071023 0%, #0b1220 100%); color:#e6eef8; -webkit-font-smoothing:antialiased}
+    a{color:inherit}
+    /* top nav */
+    .nav{
+      position:sticky; top:0; z-index:60; backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding:10px 18px; display:flex; align-items:center; gap:18px;
+    }
+    .logo{font-weight:700; font-size:20px; color:var(--accent); margin-right:12px}
+    .nav .menu{display:flex; gap:12px; flex:1; align-items:center}
+    .nav a.navlink{padding:8px 12px; border-radius:8px; text-decoration:none; color:var(--muted); font-weight:600; font-size:14px}
+    .nav a.navlink:hover{background:var(--glass); color:#fff}
+    .cta{margin-left:auto; padding:8px 12px; background:linear-gradient(90deg,var(--accent),#ff8f7f); color:white; border-radius:10px; font-weight:700; cursor:pointer; border:none}
+    /* layout */
+    .container{max-width:1100px; margin:28px auto; padding:0 18px}
+    header.hero{
+      display:flex; align-items:center; gap:24px; padding:28px; border-radius:16px;
+      background: linear-gradient(135deg, rgba(255,107,97,0.08), rgba(30,41,59,0.12));
+      box-shadow: 0 6px 30px rgba(2,6,23,0.6);
+    }
+    .hero-left{flex:1; padding:12px}
+    .hero-left h1{font-size:28px; margin-bottom:8px; letter-spacing:-0.5px}
+    .hero-left p{color:var(--muted); margin-bottom:14px}
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap}
+    .btn{background:transparent; border:1px solid rgba(255,255,255,0.06); padding:9px 14px; border-radius:10px; color:#fff; cursor:pointer; font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,var(--accent),#ff8f7f); border:none; box-shadow:0 6px 18px rgba(255,107,97,0.12)}
+    .hero-right{width:320px; min-width:220px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:12px}
+    .quick{display:flex; gap:12px; align-items:center}
+    .stat{flex:1; text-align:center; padding:10px; background:rgba(255,255,255,0.02); border-radius:10px}
+    .muted{color:var(--muted); font-size:13px}
+
+    /* sections */
+    section{margin:20px 0; padding:18px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));}
+    .section-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:12px}
+    .section-head h2{margin:0; font-size:18px}
+    /* courses grid */
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:14px; border-radius:12px; box-shadow:0 8px 30px rgba(2,6,23,0.6);
+      transition:transform .28s ease, box-shadow .28s ease;
+      display:flex; gap:12px; align-items:center;
+    }
+    .card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.8)}
+    .card .icon{width:56px; height:56px; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); display:flex; align-items:center; justify-content:center; font-size:22px}
+    .card h3{margin:0; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px}
+
+    /* compact spacing for lists */
+    .row{display:flex; gap:12px; align-items:center}
+    .form{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px}
+    input[type=text], input[type=email], input[type=tel], select, textarea{width:100%; padding:10px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:#e9f2ff}
+    label{font-size:13px; color:var(--muted)}
+    .small{font-size:13px; color:var(--muted)}
+
+    /* actions row */
+    .actions{display:flex; gap:10px; margin-top:8px; flex-wrap:wrap}
+
+    /* testimonials carousel */
+    .testimonials{position:relative; overflow:hidden}
+    .t-track{display:flex; transition:transform .5s ease}
+    .t-card{min-width:280px; max-width:400px; margin-right:12px; padding:12px; border-radius:12px; background:linear-gradient(180deg,#061121 0%, #071827 100%)}
+    .t-card p{color:var(--muted); font-size:14px}
+    .t-controls{display:flex; gap:8px; align-items:center; margin-top:10px}
+
+    /* certificate canvas area */
+    .cert-wrap{display:flex; gap:12px; align-items:flex-start; flex-wrap:wrap}
+    .cert-preview{border-radius:10px; overflow:hidden; border:1px solid rgba(255,255,255,0.04)}
+    canvas{display:block; width:760px; max-width:100%; height:auto; background:white}
+
+    /* admin table */
+    table{width:100%; border-collapse:collapse; font-size:14px}
+    th,td{padding:10px; text-align:left; border-bottom:1px solid rgba(255,255,255,0.03)}
+    th{color:var(--muted); font-weight:600}
+    .pill{padding:6px 8px; border-radius:8px; background:rgba(255,255,255,0.02); display:inline-block; font-size:13px}
+
+    /* small screens */
+    @media (max-width:720px){
+      .hero{flex-direction:column}
+      .hero-right{width:100%}
+      .nav .menu{display:none}
+    }
+
+    /* small animations */
+    .reveal{opacity:0; transform:translateY(14px); transition:all .6s cubic-bezier(.2,.9,.25,1)}
+    .reveal.visible{opacity:1; transform:none}
+    .fade-in{animation:fadeIn .9s ease both}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+    .muted-small{color:var(--muted); font-size:13px}
+    input[type=file]{padding:8px}
+    .linklike{color:var(--accent); cursor:pointer; text-decoration:underline}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="logo">InternshipHub</div>
+    <div class="menu">
+      <a class="navlink" href="#about">About</a>
+      <a class="navlink" href="#courses">Domains</a>
+      <a class="navlink" href="#register">Register</a>
+      <a class="navlink" href="#cert">Certificate</a>
+      <a class="navlink" href="#testimonials">Testimonials</a>
+    </div>
+    <button class="btn" id="openLogin">Login</button>
+    <button class="cta" id="openRegister">Apply</button>
+  </div>
+
+  <div class="container">
+
+    <!-- HERO -->
+    <header class="hero reveal">
+      <div class="hero-left">
+        <h1>Industry internships • Mentors • Real projects</h1>
+        <p>Join a short-term internship, build real-world projects, and get a certificate to showcase your skills.</p>
+        <div class="hero-actions">
+          <button class="btn primary" id="goRegister">Apply Now</button>
+          <button class="btn" id="goCourses">Explore Domains</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="quick">
+          <div class="stat">
+            <div style="font-size:18px; font-weight:700">120+</div>
+            <div class="muted-small">Interns placed</div>
+          </div>
+          <div class="stat">
+            <div style="font-size:18px; font-weight:700">30+</div>
+            <div class="muted-small">Projects</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div class="small muted">Next batch starts in</div>
+          <div style="font-weight:700; margin-top:6px">Dec 1, 2025 — Limited seats</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="reveal">
+      <div class="section-head">
+        <h2>Why choose InternshipHub?</h2>
+        <div class="small muted">Short, focused, and mentor-led</div>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <div class="card" style="flex:1; min-width:220px">
+          <div class="icon">💼</div>
+          <div>
+            <h3>Real Projects</h3>
+            <p>Work on projects used in production; not just tutorials.</p>
+          </div>
+        </div>
+
+        <div class="card" style="flex:1; min-width:220px">
+          <div class="icon">🧑‍🏫</div>
+          <div>
+            <h3>Expert Mentors</h3>
+            <p>Weekly reviews and personalized feedback.</p>
+          </div>
+        </div>
+
+        <div class="card" style="flex:1; min-width:220px">
+          <div class="icon">📜</div>
+          <div>
+            <h3>Certification</h3>
+            <p>Downloadable certificate after project submission.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURSES / DOMAINS -->
+    <section id="courses" class="reveal">
+      <div class="section-head">
+        <h2>Internship Domains</h2>
+        <div class="muted-small">Pick your path — limited seats per batch</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="icon">🌐</div>
+          <div>
+            <h3>Web Development</h3>
+            <p>HTML, CSS, JavaScript, React, Node.js — Build full-stack apps.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="icon">📊</div>
+          <div>
+            <h3>Data Science</h3>
+            <p>Python, pandas, ML basics, model evaluation & visualization.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="icon">🎨</div>
+          <div>
+            <h3>UI / UX Design</h3>
+            <p>Figma workflows, prototyping, accessibility & user research.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="icon">📱</div>
+          <div>
+            <h3>Mobile App Dev</h3>
+            <p>React Native / Flutter basics, building deployable apps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER FORM -->
+    <section id="register" class="reveal">
+      <div class="section-head">
+        <h2>Internship Registration</h2>
+        <div class="muted-small">Fill details carefully. Resume (PDF) required.</div>
+      </div>
+
+      <form id="internForm" class="form" onsubmit="return false">
+        <div>
+          <label>Name</label>
+          <input id="iname" type="text" placeholder="Your full name" required>
+        </div>
+        <div>
+          <label>Email</label>
+          <input id="iemail" type="email" placeholder="name@example.com" required>
+        </div>
+        <div>
+          <label>Phone</label>
+          <input id="iphone" type="tel" placeholder="+91 98765 43210" required>
+        </div>
+        <div>
+          <label>College / Organization</label>
+          <input id="icollege" type="text" placeholder="College name" required>
+        </div>
+
+        <div>
+          <label>Domain</label>
+          <select id="idomain" required>
+            <option value="">-- Choose domain --</option>
+            <option>Web Development</option>
+            <option>Data Science</option>
+            <option>UI/UX Design</option>
+            <option>Mobile App Development</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Available start date</label>
+          <input id="istart" type="text" placeholder="e.g., 2025-12-01" required>
+        </div>
+
+        <div style="grid-column:1/-1">
+          <label>Short note (why you want this internship)</label>
+          <textarea id="inote" rows="3" placeholder="One-liner about your goals"></textarea>
+        </div>
+
+        <div>
+          <label>Upload Resume (PDF, max 2MB)</label>
+          <input id="iresume" type="file" accept="application/pdf" required>
+        </div>
+
+        <div style="grid-column:1/-1" class="actions">
+          <button class="btn primary" id="submitIntern">Submit Application</button>
+          <button class="btn" id="resetForm" type="button">Reset</button>
+          <div class="muted-small" id="formMsg" style="padding:8px"></div>
+        </div>
+      </form>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="reveal">
+      <div class="section-head">
+        <h2>What our interns say</h2>
+        <div class="muted-small">Real feedback from past batches</div>
+      </div>
+
+      <div class="testimonials">
+        <div class="t-track" id="tTrack">
+          <div class="t-card">
+            <strong>Asha P.</strong>
+            <p>“The mentor reviews helped me complete my portfolio project. Landed an internship the next month.”</p>
+            <div class="muted-small">Web Dev — Batch 2024</div>
+          </div>
+
+          <div class="t-card">
+            <strong>Ravi S.</strong>
+            <p>“Hands-on tasks, clear goals, and great feedback. Learned data cleaning and basic modeling.”</p>
+            <div class="muted-small">Data Science — Batch 2024</div>
+          </div>
+
+          <div class="t-card">
+            <strong>Neha K.</strong>
+            <p>“UI critiques were eye-opening — I improved my designs a lot and got freelance clients.”</p>
+            <div class="muted-small">UI/UX — Batch 2023</div>
+          </div>
+        </div>
+
+        <div class="t-controls">
+          <button class="btn" id="tPrev">◀</button>
+          <button class="btn" id="tNext">▶</button>
+          <div style="margin-left:auto" class="muted-small">Auto-play enabled</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATE -->
+    <section id="cert" class="reveal">
+      <div class="section-head">
+        <h2>Generate Certificate</h2>
+        <div class="muted-small">Enter name & domain to preview and download a certificate</div>
+      </div>
+
+      <div class="cert-wrap">
+        <div style="flex:1; min-width:260px">
+          <label>Full name</label>
+          <input id="cname" type="text" placeholder="Your full name">
+
+          <label style="margin-top:8px">Internship Domain</label>
+          <select id="cdomain">
+            <option>Web Development</option>
+            <option>Data Science</option>
+            <option>UI/UX Design</option>
+            <option>Mobile App Development</option>
+          </select>
+
+          <div style="margin-top:10px" class="actions">
+            <button class="btn primary" id="genCert">Preview</button>
+            <button class="btn" id="downloadCert">Download PNG</button>
+            <div id="certMsg" class="muted-small" style="padding:8px"></div>
+          </div>
+        </div>
+
+        <div class="cert-preview" style="flex:1; min-width:320px">
+          <canvas id="certCanvas" width="1200" height="675"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN (client-side) -->
+    <section id="admin" class="reveal">
+      <div class="section-head">
+        <h2>Admin Dashboard</h2>
+        <div class="muted-small">Client-only admin (use admin@example.com / pass: admin123) — for demo</div>
+      </div>
+
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:8px">
+        <div style="flex:1">
+          <input id="adminFilter" placeholder="Filter by name or domain" style="padding:10px; border-radius:10px; width:100%; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#e6eef8">
+        </div>
+        <button class="btn" id="adminLogout">Logout Admin</button>
+      </div>
+
+      <div style="overflow:auto">
+        <table id="internTable">
+          <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Domain</th><th>College</th><th>Resume</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer style="text-align:center; padding:18px; color:var(--muted); margin-top:18px">
+      © 2025 InternshipHub — Built for demo • Data stored in your browser (localStorage)
+    </footer>
+
+  </div>
+
+  <!-- LOGIN / SIGNUP MODAL (simple) -->
+  <div id="authModal" style="position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:90">
+    <div style="width:420px; max-width:92%; background:linear-gradient(180deg,#071022,#081428); padding:16px; border-radius:12px; box-shadow:0 20px 68px rgba(0,0,0,0.6)">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
+        <strong id="authTitle">Login</strong>
+        <button id="closeAuth" class="btn">Close</button>
+      </div>
+
+      <div style="display:grid; gap:8px">
+        <input id="authEmail" type="email" placeholder="Email" style="padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#e6eef8">
+        <input id="authPass" type="password" placeholder="Password" style="padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:#e6eef8">
+        <div style="display:flex; gap:8px">
+          <button class="btn primary" id="authSubmit">Login</button>
+          <button class="btn" id="toggleAuth">Switch to Sign up</button>
+        </div>
+        <div id="authMsg" class="muted-small"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Utilities & storage ---------- */
+    const $ = (sel) => document.querySelector(sel);
+    const saveIntern = (obj) => {
+      const arr = JSON.parse(localStorage.getItem('interns')||'[]');
+      arr.push(obj); localStorage.setItem('interns', JSON.stringify(arr));
+    };
+    const getInterns = () => JSON.parse(localStorage.getItem('interns')||'[]');
+    const updateInterns = (arr) => localStorage.setItem('interns', JSON.stringify(arr));
+
+    /* ---------- Nav buttons ---------- */
+    $('#openRegister').addEventListener('click', ()=> location.hash = '#register');
+    $('#goRegister').addEventListener('click', ()=> location.hash = '#register');
+    $('#goCourses').addEventListener('click', ()=> location.hash = '#courses');
+
+    /* ---------- Reveal on scroll ---------- */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, {threshold:0.12});
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    /* ---------- Testimonials carousel ---------- */
+    const tTrack = $('#tTrack');
+    let tIndex = 0, tCards = tTrack.children.length;
+    function tShow(i){
+      tIndex = (i+tCards)%tCards;
+      const w = tTrack.children[0].getBoundingClientRect().width + 12;
+      tTrack.style.transform = `translateX(${-tIndex * w}px)`;
+    }
+    $('#tPrev').addEventListener('click', ()=> tShow(tIndex-1));
+    $('#tNext').addEventListener('click', ()=> tShow(tIndex+1));
+    setInterval(()=> tShow(tIndex+1), 4200);
+
+    /* ---------- Form handling ---------- */
+    $('#resetForm').addEventListener('click', ()=>{
+      $('#internForm').reset(); $('#formMsg').textContent = '';
+    });
+
+    $('#submitIntern').addEventListener('click', async ()=>{
+      const name = $('#iname').value.trim();
+      const email = $('#iemail').value.trim();
+      const phone = $('#iphone').value.trim();
+      const college = $('#icollege').value.trim();
+      const domain = $('#idomain').value;
+      const start = $('#istart').value.trim();
+      const note = $('#inote').value.trim();
+      const resumeInput = $('#iresume');
+
+      const msg = $('#formMsg');
+      msg.textContent = '';
+
+      if(!name || !email || !phone || !college || !domain || !start){
+        msg.textContent = 'Please fill required fields.';
+        return;
+      }
+      if(!resumeInput.files || resumeInput.files.length===0){ msg.textContent='Please upload resume (PDF).'; return; }
+      const file = resumeInput.files[0];
+      if(file.type !== 'application/pdf'){ msg.textContent='Resume must be a PDF.'; return; }
+      if(file.size > 2*1024*1024){ msg.textContent='Resume exceeds 2MB.'; return; }
+
+      // convert small resume to base64 for storage (demo only)
+      const base64 = await new Promise(res=>{
+        const r = new FileReader();
+        r.onload = e => res(e.target.result);
+        r.readAsDataURL(file);
+      });
+
+      const intern = {
+        id: 'I' + Date.now().toString(36).slice(-6),
+        name, email, phone, college, domain, start, note,
+        resumeName: file.name, resumeData: base64, status: 'pending', appliedAt: new Date().toISOString()
+      };
+
+      saveIntern(intern);
+      msg.textContent = 'Application submitted — we will contact you.';
+      $('#internForm').reset();
+      renderInternTable();
+    });
+
+    /* ---------- Certificate generation ---------- */
+    const canvas = $('#certCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function drawCertificate(name='Your Name', domain='Web Development'){
+      // draw white background + border
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+
+      // border
+      ctx.strokeStyle = '#0b0f14';
+      ctx.lineWidth = 8;
+      ctx.strokeRect(18,18,canvas.width-36,canvas.height-36);
+
+      // heading
+      ctx.fillStyle = '#0b1220';
+      ctx.font = 'bold 46px Poppins, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Certificate of Completion', canvas.width/2, 140);
+
+      // body
+      ctx.font = '20px Poppins, sans-serif';
+      ctx.fillStyle = '#374151';
+      ctx.fillText('This is to certify that', canvas.width/2, 220);
+
+      ctx.font = 'bold 36px Poppins, sans-serif';
+      ctx.fillStyle = '#0b1220';
+      ctx.fillText(name || 'Your Name', canvas.width/2, 280);
+
+      ctx.font = '18px Poppins, sans-serif';
+      ctx.fillStyle = '#374151';
+      ctx.fillText(`has successfully completed the ${domain} internship program`, canvas.width/2, 330);
+
+      // date & signature
+      ctx.font = '16px Poppins, sans-serif';
+      ctx.fillStyle = '#6b7280';
+      const d = new Date(); ctx.fillText(`Date: ${d.toLocaleDateString()}`, canvas.width/2, 380);
+
+      ctx.fillStyle = '#0b1220';
+      ctx.fillRect(canvas.width - 320, canvas.height - 160, 220, 2);
+      ctx.font = '16px Poppins, sans-serif';
+      ctx.fillText('Program Mentor', canvas.width - 210, canvas.height - 120);
+      ctx.fillStyle = '#ff6b61';
+      ctx.beginPath(); ctx.arc(140, canvas.height - 150, 36, 0, Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#fff'; ctx.font='bold 20px Poppins, sans-serif'; ctx.fillText('IH', 140, canvas.height - 136);
+    }
+
+    $('#genCert').addEventListener('click', ()=>{
+      const name = $('#cname').value.trim() || 'Your Name';
+      const domain = $('#cdomain').value;
+      drawCertificate(name, domain);
+      $('#certMsg').textContent = 'Preview generated — use "Download PNG" to save.';
+    });
+
+    $('#downloadCert').addEventListener('click', ()=>{
+      const name = ($('#cname').value.trim() || 'certificate').replace(/\s+/g,'_');
+      const link = document.createElement('a');
+      link.download = `${name}_certificate.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+
+    // init certificate default
+    drawCertificate('Intern Name', 'Web Development');
+
+    /* ---------- Admin: show interns (client-only) ---------- */
+    function renderInternTable(filter=''){
+      const body = $('#internTable tbody');
+      const interns = getInterns().filter(i=>{
+        if(!filter) return true;
+        const f = filter.toLowerCase();
+        return i.name.toLowerCase().includes(f) || i.domain.toLowerCase().includes(f) || i.email.toLowerCase().includes(f);
+      });
+      body.innerHTML = interns.map(i=>{
+        return `<tr>
+          <td>${i.name}</td>
+          <td>${i.email}</td>
+          <td>${i.phone}</td>
+          <td>${i.domain}</td>
+          <td>${i.college}</td>
+          <td><a class="linklike" href="${i.resumeData}" download="${i.resumeName}">Download</a></td>
+          <td><span class="pill">${i.status}</span></td>
+          <td>
+            <button class="btn" onclick="changeStatus('${i.id}','approved')">Approve</button>
+            <button class="btn" onclick="changeStatus('${i.id}','rejected')">Reject</button>
+            <button class="btn" onclick="deleteIntern('${i.id}')">Delete</button>
+          </td>
+        </tr>`;
+      }).join('') || `<tr><td colspan="8" style="color:var(--muted)">No applications yet.</td></tr>`;
+    }
+    window.changeStatus = (id, st) => {
+      const arr = getInterns().map(x=> x.id===id ? {...x, status:st} : x);
+      updateInterns(arr); renderInternTable($('#adminFilter').value);
+    }
+    window.deleteIntern = (id) => {
+      const arr = getInterns().filter(x=> x.id!==id);
+      updateInterns(arr); renderInternTable($('#adminFilter').value);
+    }
+
+    $('#adminFilter').addEventListener('input', (e)=> renderInternTable(e.target.value));
+
+    // initial render
+    renderInternTable();
+
+    /* ---------- Simple auth modal (client-only) ---------- */
+    let authMode = 'login'; // or signup
+    $('#openLogin').addEventListener('click', ()=> {
+      $('#authModal').style.display = 'flex';
+      $('#authTitle').textContent = 'Login';
+      $('#authMsg').textContent = '';
+      authMode = 'login'; $('#toggleAuth').textContent = 'Switch to Sign up';
+    });
+    $('#closeAuth').addEventListener('click', ()=> $('#authModal').style.display = 'none');
+
+    $('#toggleAuth').addEventListener('click', ()=>{
+      if(authMode === 'login'){ authMode = 'signup'; $('#authTitle').textContent='Sign up'; $('#toggleAuth').textContent='Switch to Login'; }
+      else { authMode = 'login'; $('#authTitle').textContent='Login'; $('#toggleAuth').textContent='Switch to Sign up'; }
+    });
+
+    // Manage users in localStorage (very simple)
+    const getUsers = ()=> JSON.parse(localStorage.getItem('users')||'[]');
+    const saveUsers = u=> localStorage.setItem('users', JSON.stringify(u));
+    // Create a demo admin account if not present
+    (function ensureAdmin(){
+      const users = getUsers();
+      if(!users.find(u=> u.email === 'admin@example.com')){
+        users.push({email:'admin@example.com', pass:'admin123', name:'Admin', role:'admin'});
+        saveUsers(users);
+      }
+    })();
+
+    $('#authSubmit').addEventListener('click', ()=>{
+      const email = $('#authEmail').value.trim();
+      const pass = $('#authPass').value;
+      const msg = $('#authMsg');
+      if(!email || !pass){ msg.textContent = 'Enter email and password.'; return; }
+      if(authMode === 'signup'){
+        const users = getUsers();
+        if(users.find(u=> u.email===email)){ msg.textContent='Account already exists.'; return; }
+        users.push({email, pass, name:email.split('@')[0], role:'user'});
+        saveUsers(users);
+        msg.textContent = 'Account created. You can login now.'; authMode='login'; $('#toggleAuth').textContent='Switch to Sign up'; $('#authTitle').textContent='Login';
+        return;
+      } else {
+        const users = getUsers();
+        const found = users.find(u=> u.email===email && u.pass===pass);
+        if(!found){ msg.textContent = 'Invalid credentials.'; return; }
+        // login success
+        localStorage.setItem('session', JSON.stringify({email:found.email, role:found.role, name:found.name}));
+        msg.textContent = 'Logged in.';
+        $('#authModal').style.display = 'none';
+        updateUIOnLogin();
+      }
+    });
+
+    function updateUIOnLogin(){
+      const s = JSON.parse(localStorage.getItem('session')||'null');
+      if(s){
+        $('#openLogin').textContent = s.name || s.email;
+        $('#openLogin').disabled = true;
+        if(s.role === 'admin') {
+          location.hash = '#admin';
+        }
+      } else {
+        $('#openLogin').textContent = 'Login';
+        $('#openLogin').disabled = false;
+      }
+    }
+    updateUIOnLogin();
+
+    // admin logout
+    $('#adminLogout').addEventListener('click', ()=>{
+      localStorage.removeItem('session');
+      updateUIOnLogin();
+      alert('Logged out (client demo).');
+    });
+
+    /* ---------- small polish: handle anchor navigation to reveal sections ---------- */
+    window.addEventListener('hashchange', ()=>{
+      const id = location.hash.slice(1);
+      if(!id) return;
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    /* ---------- initialize intern table periodically (in case of changes) ---------- */
+    setInterval(()=> renderInternTable($('#adminFilter').value), 1800);
+
+  </script>
+</body>
+</html>
